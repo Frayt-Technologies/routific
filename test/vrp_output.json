@@ -1,0 +1,27 @@
+{
+  "status": "success",
+  "fitness": 1450,
+  "total_travel_time": 24.166666,
+  "total_idle_time": 0,
+  "num_unserved": 0,
+  "unserved": null,
+  "solution": {
+    "vehicle_1": [{
+        "location_id": "depot",
+        "location_name": "800 Kingsway"
+      },
+      {
+        "location_id": "order_3",
+        "location_name": "800 Robson"
+      },
+      {
+        "location_id": "order_2",
+        "location_name": "3780 Arbutus"
+      },
+      {
+        "location_id": "order_1",
+        "location_name": "6800 Cambie"
+      }
+    ]
+  }
+}
