@@ -19,5 +19,11 @@ defmodule RoutificTest do
 
   test "invalid api key returns error", %{vrp_input: vrp_input} do
     assert {:error, invalid_key_error} = Routific.optimize_route(vrp_input, "bad_key")
+    assert String.contains?(invalid_key_error, "Invalid API key")
+  end
+
+  test "bad request" do
+    assert {:error, invalid_request} = Routific.optimize_route(%{fleet: %{vehicle_1: %{}}})
+    assert String.contains?(invalid_request, "Missing 'visits'")
   end
 end

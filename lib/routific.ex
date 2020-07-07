@@ -22,8 +22,14 @@ defmodule Routific do
   defp process_response(%HTTPoison.Response{status_code: 401}),
     do: {:error, "Invalid API key"}
 
+  defp process_response(%HTTPoison.Response{status_code: 400, body: body}) do
+    {:error, body |> Jason.decode!() |> Map.get("error")}
+  end
+
   defp vrp_url(), do: "https://api.routific.com/v1/vrp"
 
   defp default_api_key(),
-    do: Application.get_env(:routific, :api_key) || System.get_env("ROUTIFIC_API_KEY")
+    do:
+      Application.get_env(:routific, :api_key) ||
+        System.get_env("ROUTIFIC_API_KEY")
 end
