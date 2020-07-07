@@ -18,7 +18,10 @@
         "requireFiles": [
           "test/**/test_helper.exs",
           "test/**/*_test.exs"
-        ]
+        ],
+        "env": {
+          "ROUTIFIC_API_KEY": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1MzEzZDZiYTNiMDBkMzA4MDA2ZTliOGEiLCJpYXQiOjEzOTM4MDkwODJ9.PR5qTHsqPogeIIe0NyH2oheaGR-SJXDsxPTcUQNq90E"
+        }
       },
       "problemMatcher": "$mixTestFailure"
     },
@@ -37,8 +40,12 @@
         "requireFiles": [
           "test/**/test_helper.exs",
           "test/**/*_test.exs"
-        ]
+        ],
+        "env": {
+          "ROUTIFIC_API_KEY": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1MzEzZDZiYTNiMDBkMzA4MDA2ZTliOGEiLCJpYXQiOjEzOTM4MDkwODJ9.PR5qTHsqPogeIIe0NyH2oheaGR-SJXDsxPTcUQNq90E"
+        }
       },
+
       "problemMatcher": "$mixTestFailure"
     },
     {
@@ -56,7 +63,10 @@
         "requireFiles": [
           "test/**/test_helper.exs",
           "test/**/*_test.exs"
-        ]
+        ],
+        "env": {
+          "ROUTIFIC_API_KEY": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1MzEzZDZiYTNiMDBkMzA4MDA2ZTliOGEiLCJpYXQiOjEzOTM4MDkwODJ9.PR5qTHsqPogeIIe0NyH2oheaGR-SJXDsxPTcUQNq90E"
+        }
       },
       "problemMatcher": "$mixTestFailure",
       "group": {

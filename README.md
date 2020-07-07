@@ -10,7 +10,7 @@ by adding `routific_elixir` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:routific_elixir, "~> 0.1.0"}
+    {:routific, "~> 0.1.0"}
   ]
 end
 ```
