@@ -6,13 +6,33 @@ defmodule Routific do
   @doc """
   Optimize routes by calling routific
   """
-  def optimize_route(route, api_key \\ default_api_key()) do
+  def optimize_route(route, api_key \\ default_api_key())
+
+  def optimize_route(%{"visits" => visits} = route, api_key) do
+    if Enum.count(visits) > 20 do
+      optimize_route(route, vrp_url_long(), api_key)
+    else
+      optimize_route(route, vrp_url(), api_key)
+    end
+  end
+
+  def optimize_route(route, api_key) do
+    optimize_route(route, vrp_url(), api_key)
+  end
+
+  def optimize_route(route, url, api_key) do
     body = route |> Jason.encode!()
 
     auth_header = {"Authorization", "bearer #{api_key}"}
 
     content_type = {"Content-Type", "application/json"}
-    {:ok, response} = HTTPoison.post(vrp_url(), body, [auth_header, content_type])
+    {:ok, response} = HTTPoison.post(url, body, [auth_header, content_type])
+    response |> process_response()
+  end
+
+  def check_routing_status(job_id) do
+    content_type = {"Content-Type", "application/json"}
+    {:ok, response} = HTTPoison.get(job_url(job_id), [content_type])
     response |> process_response()
   end
 
@@ -26,7 +46,14 @@ defmodule Routific do
     {:error, body |> Jason.decode!() |> Map.get("error")}
   end
 
+  defp process_response(%HTTPoison.Response{status_code: 202, body: body}),
+    do: body |> Jason.decode()
+
   defp vrp_url(), do: "https://api.routific.com/v1/vrp"
+
+  defp vrp_url_long(), do: "https://api.routific.com/v1/vrp-long"
+
+  defp job_url(job_id), do: "https://api.routific.com/jobs/#{job_id}"
 
   defp default_api_key(),
     do:
