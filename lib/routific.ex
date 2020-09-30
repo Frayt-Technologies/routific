@@ -46,6 +46,20 @@ defmodule Routific do
     {:error, body |> Jason.decode!() |> Map.get("error")}
   end
 
+  defp process_response(%HTTPoison.Response{status_code: 408}),
+    do: {:error, "Request timeout. Your request was too large."}
+
+  defp process_response(%HTTPoison.Response{status_code: 412}),
+    do:
+      {:error,
+       "No solution could be found. Please check your input. This is usually due to incorrect time-windows."}
+
+  defp process_response(%HTTPoison.Response{status_code: 429}),
+    do: {:error, "Exceeded API usage for Routific."}
+
+  defp process_response(%HTTPoison.Response{status_code: 500}),
+    do: {:error, "Something is wrong on Routific's end. Contact them at support@routific.com"}
+
   defp process_response(%HTTPoison.Response{status_code: 202, body: body}),
     do: body |> Jason.decode()
 
