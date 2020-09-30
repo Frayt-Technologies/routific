@@ -39,10 +39,17 @@ defmodule Routific do
   defp process_response(%HTTPoison.Response{status_code: 200, body: body}),
     do: body |> Jason.decode()
 
+  defp process_response(%HTTPoison.Response{status_code: 202, body: body}),
+    do: body |> Jason.decode()
+
   defp process_response(%HTTPoison.Response{status_code: 401}),
     do: {:error, "Invalid API key"}
 
   defp process_response(%HTTPoison.Response{status_code: 400, body: body}) do
+    {:error, body |> Jason.decode!() |> Map.get("error")}
+  end
+
+  defp process_response(%HTTPoison.Response{status_code: 404, body: body}) do
     {:error, body |> Jason.decode!() |> Map.get("error")}
   end
 
@@ -59,9 +66,6 @@ defmodule Routific do
 
   defp process_response(%HTTPoison.Response{status_code: 500}),
     do: {:error, "Something is wrong on Routific's end. Contact them at support@routific.com"}
-
-  defp process_response(%HTTPoison.Response{status_code: 202, body: body}),
-    do: body |> Jason.decode()
 
   defp vrp_url(), do: "https://api.routific.com/v1/vrp"
 
