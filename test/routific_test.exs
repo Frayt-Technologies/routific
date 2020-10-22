@@ -60,6 +60,10 @@ defmodule RoutificTest do
     assert optimized_route["solution"] == vrp_output["solution"]
   end
 
+  test "optimize route async", %{vrp_input: vrp_input} do
+    assert {:ok, %{"job_id" => job_id}} = Routific.optimize_route_async(vrp_input)
+  end
+
   test "optimize route with more than 20 stops uses vrp_long" do
     fleet = %{
       "vehicle_1" => %{

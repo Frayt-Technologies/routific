@@ -30,6 +30,10 @@ defmodule Routific do
     response |> process_response()
   end
 
+  def optimize_route_async(route, api_key \\ default_api_key()) do
+    optimize_route(route, vrp_url_long(), api_key)
+  end
+
   def check_routing_status(job_id) do
     content_type = {"Content-Type", "application/json"}
     {:ok, response} = HTTPoison.get(job_url(job_id), [content_type])
